@@ -1,5 +1,5 @@
 <footer class="">
-    <section class="bg-dark text-white p-4">
+    <section id="footer-top" class="text-white p-4">
         <div class="container">
             <div class="row">
                 <!-- Widget 1 -->

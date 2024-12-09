@@ -13,6 +13,10 @@ body {
     font-family: Arial, sans-serif;
 }
 
+a, a:hover{
+    color: rgb(91 23 109);
+    text-decoration: underline;
+}
 .carousel-image {
     height: 400px; /* Ajuste para a altura desejada */
     object-fit: cover; /* Mantém o foco central e recorta o excesso */
@@ -79,6 +83,15 @@ body {
     color: #cccccc;
 }
 
+
+.btn-tema{
+    --bs-btn-bg: #833b96;
+    --bs-btn-border-color: #430254;
+}
+
+#footer-top{
+    background-color: rgb(67 2 84) !important;
+}
 @media (max-width: 768px) {
     .footer-widget {
         text-align: center;

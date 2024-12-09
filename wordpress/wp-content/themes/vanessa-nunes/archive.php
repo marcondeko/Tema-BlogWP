@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<div class="container">
+<div class="container pt-4 bg-white">
     <header class="page-header">
         <h1 class="page-title">
             <?php

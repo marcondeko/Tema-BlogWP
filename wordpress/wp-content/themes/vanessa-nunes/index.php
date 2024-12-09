@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<div class="container mt-4">
+<div class="container pt-4 bg-white">
     <div class="row">
         <!-- Carrossel de posts em destaque -->
         <div id="featuredPostsCarousel" class="carousel slide col-12 mb-4" data-bs-ride="carousel">
@@ -66,7 +66,7 @@
                                     <p class="card-text">
                                         <?php echo wp_trim_words(get_the_content(), 20, '...'); ?>
                                     </p>
-                                    <a href="<?php the_permalink(); ?>" class="btn btn-primary btn-sm">Leia mais</a>
+                                    <a href="<?php the_permalink(); ?>" class="btn btn-primary btn-tema btn-sm">Leia mais</a>
                                 </div>
                             </article>
                         </div>

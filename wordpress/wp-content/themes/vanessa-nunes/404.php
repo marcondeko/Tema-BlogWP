@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<div class="container">
+<div class="container pt-4 text-center bg-white">
     <h1>Desculpe, a página não foi encontrada!</h1>
     <p>O conteúdo que você está procurando não está disponível. Tente procurar usando o formulário abaixo ou volte para a página inicial.</p>
 
