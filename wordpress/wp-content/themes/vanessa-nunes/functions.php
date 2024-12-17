@@ -11,6 +11,14 @@ function meu_tema_scripts() {
 }
 add_action('wp_enqueue_scripts', 'meu_tema_scripts');
 
+// Registrar e incluir o WP Bootstrap Navwalker para menus
+function enqueue_font_awesome() {
+    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+}
+add_action('wp_enqueue_scripts', 'enqueue_font_awesome');
+
+
+
 // Registrar menus de navegação
 function meu_tema_menus() {
     register_nav_menus(array(
@@ -85,6 +93,7 @@ add_action('customize_register', 'meu_tema_customizer');
 // Registrar e incluir o WP Bootstrap Navwalker para menus
 require_once get_template_directory() . '/inc/class-wp-bootstrap-navwalker.php';
 
+
 // Widget "Sobre Mim"
 class AuthorBioWidget extends WP_Widget {
     public function __construct() {
@@ -100,9 +109,32 @@ class AuthorBioWidget extends WP_Widget {
         <section class="widget widget_author_bio">
             <h2 class="widget-title"><?php echo esc_html($instance['title']); ?></h2>
             <div>
-                <img src="<?php echo esc_url($instance['image_url']); ?>" alt="<?php echo esc_attr($instance['title']); ?>">
-                <h3><?php echo esc_html($instance['author_name']); ?></h3>
-                <p><?php echo esc_html($instance['description']); ?></p>
+                <div class="image-holder">
+                    <img src="<?php echo esc_url($instance['image_url']); ?>" alt="<?php echo esc_attr($instance['title']); ?>" class="img-fluid rounded-circle">
+                </div>
+                <div class="title-holder">
+                    <h3><?php echo esc_html($instance['author_name']); ?></h3>
+                </div>
+                <div class="author-bio-content">
+                    <p><?php echo esc_html($instance['description']); ?></p>
+                </div>
+                <div class="author-bio-socicons">
+                    <?php if (!empty($instance['facebook_url'])): ?>
+                        <a href="<?php echo esc_url($instance['facebook_url']); ?>" class="author-socicons" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    <?php endif; ?>
+                    <?php if (!empty($instance['twitter_url'])): ?>
+                        <a href="<?php echo esc_url($instance['twitter_url']); ?>" class="author-socicons" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    <?php endif; ?>
+                    <?php if (!empty($instance['linkedin_url'])): ?>
+                        <a href="<?php echo esc_url($instance['linkedin_url']); ?>" class="author-socicons" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    <?php endif; ?>
+                </div>
             </div>
         </section>
         <?php
@@ -114,6 +146,9 @@ class AuthorBioWidget extends WP_Widget {
         $author_name = !empty($instance['author_name']) ? $instance['author_name'] : '';
         $description = !empty($instance['description']) ? $instance['description'] : '';
         $image_url = !empty($instance['image_url']) ? $instance['image_url'] : '';
+        $facebook_url = !empty($instance['facebook_url']) ? $instance['facebook_url'] : '';
+        $twitter_url = !empty($instance['twitter_url']) ? $instance['twitter_url'] : '';
+        $linkedin_url = !empty($instance['linkedin_url']) ? $instance['linkedin_url'] : '';
         ?>
         <p>
             <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Título:'); ?></label>
@@ -131,6 +166,18 @@ class AuthorBioWidget extends WP_Widget {
             <label for="<?php echo $this->get_field_id('image_url'); ?>"><?php _e('URL da Imagem:'); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id('image_url'); ?>" name="<?php echo $this->get_field_name('image_url'); ?>" type="text" value="<?php echo esc_attr($image_url); ?>">
         </p>
+        <p>
+            <label for="<?php echo $this->get_field_id('facebook_url'); ?>"><?php _e('URL do Facebook:'); ?></label>
+            <input class="widefat" id="<?php echo $this->get_field_id('facebook_url'); ?>" name="<?php echo $this->get_field_name('facebook_url'); ?>" type="text" value="<?php echo esc_attr($facebook_url); ?>">
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id('twitter_url'); ?>"><?php _e('URL do Twitter:'); ?></label>
+            <input class="widefat" id="<?php echo $this->get_field_id('twitter_url'); ?>" name="<?php echo $this->get_field_name('twitter_url'); ?>" type="text" value="<?php echo esc_attr($twitter_url); ?>">
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id('linkedin_url'); ?>"><?php _e('URL do LinkedIn:'); ?></label>
+            <input class="widefat" id="<?php echo $this->get_field_id('linkedin_url'); ?>" name="<?php echo $this->get_field_name('linkedin_url'); ?>" type="text" value="<?php echo esc_attr($linkedin_url); ?>">
+        </p>
         <?php
     }
 
@@ -140,6 +187,9 @@ class AuthorBioWidget extends WP_Widget {
         $instance['author_name'] = !empty($new_instance['author_name']) ? strip_tags($new_instance['author_name']) : '';
         $instance['description'] = !empty($new_instance['description']) ? strip_tags($new_instance['description']) : '';
         $instance['image_url'] = !empty($new_instance['image_url']) ? strip_tags($new_instance['image_url']) : '';
+        $instance['facebook_url'] = !empty($new_instance['facebook_url']) ? esc_url_raw($new_instance['facebook_url']) : '';
+        $instance['twitter_url'] = !empty($new_instance['twitter_url']) ? esc_url_raw($new_instance['twitter_url']) : '';
+        $instance['linkedin_url'] = !empty($new_instance['linkedin_url']) ? esc_url_raw($new_instance['linkedin_url']) : '';
         return $instance;
     }
 }
@@ -149,5 +199,6 @@ function register_author_bio_widget() {
     register_widget('AuthorBioWidget');
 }
 add_action('widgets_init', 'register_author_bio_widget');
+
 
 ?>
